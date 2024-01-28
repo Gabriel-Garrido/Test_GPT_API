@@ -12,16 +12,16 @@ export function TestGPT() {
         event.preventDefault();
 
         try {
-            const response = await fetch('https://api.openai.com/v1/completions', { // Asegúrate de usar el endpoint correcto
+            const response = await fetch('https://api.openai.com/v1/completions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer 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' // Reemplaza 'tu_api_key_aquí' con tu API key real
+                    'Authorization': `Bearer ${import.meta.env.OPENAI_API_KEY}` // Reemplaza 'tu_api_key_aquí' con tu API key real
                 },
                 body: JSON.stringify({
-                    model: 'gpt-3.5-turbo', // Especifica el modelo que deseas utilizar
+                    model: 'gpt-3.5-turbo',
                     prompt: inputText,
-                    max_tokens: 150 // Ajusta según tus necesidades
+                    max_tokens: 150
                 }),
             });
 
@@ -30,7 +30,7 @@ export function TestGPT() {
             }
 
             const data = await response.json();
-            setResponseText(data.choices[0].text); // Ajusta según la estructura de la respuesta de la API
+            setResponseText(data.choices[0].text);
         } catch (error) {
             console.error('Hubo un problema con tu solicitud de la API: ', error);
             setResponseText('Error al procesar la solicitud.');
